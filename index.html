@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A modern wedding website for Jon and Elissa, ready to publish on GitHub Pages."
+    />
+    <title>Jon & Elissa | Wedding Website</title>
+    <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quattrocento:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <nav class="nav-bar" aria-label="Main navigation">
+        <a class="brand" href="#home">Jon & Elissa</a>
+        <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="nav-links">
+          <a href="#home">Home</a>
+          <a href="#schedule">Schedule</a>
+          <a href="#travel">Travel</a>
+          <a href="#registry">Registry</a>
+          <a href="#party">Wedding Party</a>
+          <a href="#our story">Our Story</a>
+          <a href="#faq">FAQs</a>
+        </div>
+      </nav>
+    </header>
+
+    <main id="home">
+      <section class="hero hero-minimal">
+        <div class="hero-copy">
+          <div class="hero-name-group">
+            <p class="hero-intro">We would like to welcome you to celebrate with us</p>
+            <h1 class="brand hero-name">JON FRISCH</h1>
+            <p class="hero-and">and</p>
+            <h1 class="brand hero-name">ELISSA BAMBERGER</h1>
+          </div>
+          <p class="hero-date">February 27, 2028</p>
+          <p class="hero-location">Fort Lauderdale, FL</p>
+          <div class="countdown" id="countdown" aria-live="polite">
+            <span class="countdown-line">0 years, 0 months, 0 days</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>
