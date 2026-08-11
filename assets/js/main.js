@@ -4,6 +4,54 @@
 const menuToggle = document.querySelector('.menu-toggle');
 const navLinks = document.querySelector('.nav-links');
 
+function delay(ms) {
+  return new Promise((resolve) => window.setTimeout(resolve, ms));
+}
+
+function waitForWindowLoad() {
+  if (document.readyState === 'complete') return Promise.resolve();
+
+  return new Promise((resolve) => {
+    window.addEventListener('load', resolve, { once: true });
+  });
+}
+
+function waitForFonts() {
+  if (!('fonts' in document) || !document.fonts?.ready) return Promise.resolve();
+  return document.fonts.ready.catch(() => undefined);
+}
+
+async function startIntroAnimationsSmart() {
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion) {
+    document.body.classList.add('animations-ready');
+    setupPartyScrollReveal();
+    return;
+  }
+
+  const startedAt = performance.now();
+  const MIN_HOLD_MS = 220;
+  const MAX_WAIT_MS = 2200;
+
+  const readiness = Promise.allSettled([
+    waitForWindowLoad(),
+    waitForFonts()
+  ]);
+
+  await Promise.race([readiness, delay(MAX_WAIT_MS)]);
+
+  const elapsed = performance.now() - startedAt;
+  if (elapsed < MIN_HOLD_MS) {
+    await delay(MIN_HOLD_MS - elapsed);
+  }
+
+  await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+  document.body.classList.add('animations-ready');
+  setupPartyScrollReveal();
+}
+
+startIntroAnimationsSmart();
+
 /**
  * Toggle the mobile navigation menu open/closed.
  * Updates aria-expanded for accessibility.
@@ -66,8 +114,6 @@ function setupPartyScrollReveal() {
 
   partyItems.forEach((item) => observer.observe(item));
 }
-
-setupPartyScrollReveal();
 
 /* -----------------------------------------------------
    Party bio modal

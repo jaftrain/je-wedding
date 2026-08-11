@@ -882,6 +882,18 @@ main {
 /* -----------------------------------------------------
    Animations (slower, softer entrance)
    ----------------------------------------------------- */
+body:not(.animations-ready) .nav-bar .brand,
+body:not(.animations-ready) .nav-links,
+body:not(.animations-ready) .hero-name-group,
+body:not(.animations-ready) .brand.hero-name,
+body:not(.animations-ready) .hero-and,
+body:not(.animations-ready) .hero-date,
+body:not(.animations-ready) .hero-location,
+body:not(.animations-ready) .hero-rsvp,
+body:not(.animations-ready) .countdown {
+  animation-play-state: paused !important;
+}
+
 /* Unified timing: start together with a gentle easing. */
 .nav-bar .brand {
   display: inline-block;
@@ -1020,7 +1032,8 @@ main {
     bottom: 0;
     width: min(18rem, 84vw);
     flex-direction: column;
-    align-items: flex-start;
+    flex-wrap: nowrap;
+    align-items: stretch;
     justify-content: center;
     gap: 0.55rem;
     padding: 5rem 1.25rem 1.5rem;
@@ -1042,7 +1055,8 @@ main {
   }
 
   .nav-links a {
-    width: auto;
+    display: block;
+    width: 100%;
     padding: 0.2rem 0;
     font-size: 0.95rem;
     font-weight: 700;
