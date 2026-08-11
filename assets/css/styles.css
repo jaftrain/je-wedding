@@ -92,7 +92,7 @@ a {
   }
 
   body {
-    background-image: url("../images/watercolor-floral-border-bouquet-mobile.webp");
+    background-image: url("../images/watercolor-floral-border-bouquet-mobile.test.webp");
     background-position: center top;
     background-repeat: no-repeat;
     background-size: 100% auto;
@@ -137,6 +137,12 @@ a {
   .hero-minimal {
     padding: 0.6rem 0.9rem 1.4rem;
     min-height: auto;
+  }
+
+  .hero-minimal .hero-copy {
+    width: min(70vw, 70%);
+    max-width: 70%;
+    margin: 1rem auto 0;
   }
 
   .hero-intro {
@@ -318,7 +324,6 @@ main {
   padding: 2.3rem 0 2.5rem;
   border-bottom: 1px solid rgba(50, 44, 39, 0.24);
   --party-shift: 0px;
-  animation: partyFromCenter 1.8s cubic-bezier(0.22, 0.8, 0.26, 1) 0.12s both;
 }
 
 .party-grid .party-person:nth-child(odd) {
@@ -355,7 +360,6 @@ main {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  animation: shimmer 3s cubic-bezier(0.16, 1, 0.3, 1) 0.12s 1;
 }
 
 .party-role {
@@ -363,6 +367,32 @@ main {
   font-size: clamp(1.12rem, 1.5vw, 1.42rem);
   line-height: 1.35;
   color: #1d1a18;
+}
+
+.party-page .party-person:not(.party-person-empty) .party-name,
+.party-page .party-person:not(.party-person-empty) .party-role {
+  opacity: 0;
+  transform: translateX(var(--party-shift)) scale(0.96);
+  will-change: opacity, transform;
+}
+
+.party-page .party-person:not(.party-person-empty).is-visible .party-name,
+.party-page .party-person:not(.party-person-empty).is-visible .party-role {
+  animation: partyFromCenter 1.8s cubic-bezier(0.22, 0.8, 0.26, 1) 0.12s both;
+}
+
+.party-page .party-person:not(.party-person-empty).is-visible .party-name {
+  animation: partyFromCenter 1.8s cubic-bezier(0.22, 0.8, 0.26, 1) 0.12s both,
+             shimmer 3s cubic-bezier(0.16, 1, 0.3, 1) 0.12s 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .party-page .party-person:not(.party-person-empty) .party-name,
+  .party-page .party-person:not(.party-person-empty) .party-role {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
 }
 
 .hero {
@@ -393,7 +423,16 @@ main {
 }
 
 .hero-name-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   animation: slideInLeft 1.8s cubic-bezier(0.22, 0.8, 0.26, 1) 0.12s both;
+}
+
+.hero-name-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .hero-intro {
@@ -419,6 +458,7 @@ main {
 }
 
 .brand.hero-name {
+  display: block;
   font-family: "Quattrocento", Georgia, serif;
   text-transform: uppercase;
   letter-spacing: 0.18em;

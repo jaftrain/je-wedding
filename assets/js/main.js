@@ -37,6 +37,39 @@ if (navLinkItems.length > 0) {
 }
 
 /* -----------------------------------------------------
+   Wedding party scroll reveal
+   ----------------------------------------------------- */
+function setupPartyScrollReveal() {
+  const partyItems = document.querySelectorAll('.party-page .party-person:not(.party-person-empty)');
+  if (partyItems.length === 0) return;
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+    partyItems.forEach((item) => item.classList.add('is-visible'));
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.18,
+      rootMargin: '0px 0px -8% 0px'
+    }
+  );
+
+  partyItems.forEach((item) => observer.observe(item));
+}
+
+setupPartyScrollReveal();
+
+/* -----------------------------------------------------
    Countdown timer
    ----------------------------------------------------- */
 const countdownElement = document.getElementById('countdown');
