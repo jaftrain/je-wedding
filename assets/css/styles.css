@@ -232,7 +232,16 @@ a {
   color: var(--accent);
 }
 
+.nav-links a.active {
+  color: var(--accent);
+}
+
 .nav-links a:hover::after {
+  transform: translateX(-50%) scaleX(1);
+  opacity: 1;
+}
+
+.nav-links a.active::after {
   transform: translateX(-50%) scaleX(1);
   opacity: 1;
 }
@@ -270,6 +279,90 @@ main {
   max-width: 1120px;
   margin: 0 auto;
   padding: 2rem 1.25rem 4rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.party-page {
+  background: #ffffff;
+  background-color: #ffffff;
+  background-image: none;
+}
+
+.wedding-party-page {
+  min-height: calc(100vh - 9rem);
+  padding: 3rem 0 2rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.party-grid {
+  width: min(840px, calc(100% - 2rem));
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.party-person {
+  text-align: center;
+  padding: 2.3rem 0 2.5rem;
+  border-bottom: 1px solid rgba(50, 44, 39, 0.24);
+  --party-shift: 0px;
+  animation: partyFromCenter 1.8s cubic-bezier(0.22, 0.8, 0.26, 1) 0.12s both;
+}
+
+.party-grid .party-person:nth-child(odd) {
+  border-right: 1px solid rgba(50, 44, 39, 0.24);
+  --party-shift: 58px;
+}
+
+.party-grid .party-person:nth-last-child(-n + 2) {
+  border-bottom: 0;
+}
+
+.party-grid .party-person:nth-child(even) {
+  --party-shift: -58px;
+}
+
+.party-person-empty {
+  animation: none;
+}
+
+.party-person-empty .party-name,
+.party-person-empty .party-role {
+  visibility: hidden;
+}
+
+.party-name {
+  margin: 0;
+  font-size: clamp(2rem, 3.2vw, 3rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #b97a66 0%, #e7c1a6 35%, #c78d73 70%, #b97a66 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 3s cubic-bezier(0.16, 1, 0.3, 1) 0.12s 1;
+}
+
+.party-role {
+  margin: 0.65rem 0 0;
+  font-size: clamp(1.12rem, 1.5vw, 1.42rem);
+  line-height: 1.35;
+  color: #1d1a18;
 }
 
 .hero {
@@ -605,6 +698,18 @@ main {
   }
 }
 
+@keyframes partyFromCenter {
+  0% {
+    opacity: 0;
+    transform: translateX(var(--party-shift)) scale(0.96);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
 /* -----------------------------------------------------
    Responsive styles
    ----------------------------------------------------- */
@@ -679,6 +784,36 @@ main {
 
   .nav-links a::after {
     display: none;
+  }
+
+  .wedding-party-page {
+    min-height: auto;
+    padding: 1.1rem 0 0.8rem;
+  }
+
+  .party-grid {
+    width: 100%;
+    grid-template-columns: 1fr;
+  }
+
+  .party-grid .party-person:nth-child(odd) {
+    border-right: 0;
+  }
+
+  .party-grid .party-person:not(:last-child) {
+    border-bottom: 1px solid rgba(50, 44, 39, 0.2);
+  }
+
+  .party-person {
+    padding: 1.6rem 0;
+  }
+
+  .party-name {
+    font-size: clamp(1.5rem, 7.6vw, 2.05rem);
+  }
+
+  .party-role {
+    font-size: clamp(1rem, 4vw, 1.2rem);
   }
 
   .hero,
