@@ -70,6 +70,62 @@ function setupPartyScrollReveal() {
 setupPartyScrollReveal();
 
 /* -----------------------------------------------------
+   Party bio modal
+   ----------------------------------------------------- */
+const partyModal = document.getElementById('party-modal');
+const partyModalTitle = document.getElementById('party-modal-title');
+const partyModalRole = document.getElementById('party-modal-role');
+const partyModalBio = document.getElementById('party-modal-bio');
+const partyModalClose = document.querySelector('.party-modal-close');
+const partyNameLinks = document.querySelectorAll('.party-name-link');
+
+function openPartyModal(link) {
+  if (!partyModal || !partyModalTitle || !partyModalRole || !partyModalBio) return;
+
+  partyModalTitle.textContent = link.dataset.name || 'Wedding Party';
+  partyModalRole.textContent = link.dataset.role || 'Member';
+  partyModalBio.textContent = link.dataset.bio || 'A warm and thoughtful member of the celebration.';
+  partyModal.hidden = false;
+  requestAnimationFrame(() => {
+    partyModal.classList.add('is-open');
+  });
+}
+
+function closePartyModal() {
+  if (!partyModal) return;
+
+  partyModal.classList.remove('is-open');
+  window.setTimeout(() => {
+    partyModal.hidden = true;
+  }, 280);
+}
+
+partyNameLinks.forEach((link) => {
+  link.addEventListener('click', (event) => {
+    event.preventDefault();
+    openPartyModal(link);
+  });
+});
+
+if (partyModalClose) {
+  partyModalClose.addEventListener('click', closePartyModal);
+}
+
+if (partyModal) {
+  partyModal.addEventListener('click', (event) => {
+    if (event.target === partyModal) {
+      closePartyModal();
+    }
+  });
+}
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && partyModal && !partyModal.hidden) {
+    closePartyModal();
+  }
+});
+
+/* -----------------------------------------------------
    Countdown timer
    ----------------------------------------------------- */
 const countdownElement = document.getElementById('countdown');
