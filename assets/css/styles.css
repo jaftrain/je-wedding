@@ -315,6 +315,118 @@ main {
   background-image: none;
 }
 
+.travel-page {
+  background: #ffffff;
+  background-color: #ffffff;
+  background-image: none;
+}
+
+.travel-layout {
+  min-height: calc(100vh - 12rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0 3rem;
+}
+
+.travel-card {
+  width: min(760px, 100%);
+  background: #ffffff;
+  border: 1px solid rgba(77, 59, 45, 0.1);
+  border-radius: 26px;
+  box-shadow: 0 10px 28px rgba(44, 34, 26, 0.07);
+  padding: clamp(1.5rem, 4vw, 3rem);
+  text-align: center;
+}
+
+.travel-title {
+  margin: 0 0 1rem;
+  font-family: "Quattrocento", Georgia, serif;
+  font-size: clamp(2.7rem, 7vw, 4.2rem);
+  line-height: 1.12;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #b97a66 0%, #e7c1a6 35%, #c78d73 70%, #b97a66 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.travel-plane {
+  display: block;
+  width: min(100%, 250px);
+  margin: 0 auto 0.9rem;
+  height: auto;
+}
+
+.travel-lead {
+  margin: 0 auto;
+  max-width: 46ch;
+  color: #302923;
+  font-size: clamp(1.02rem, 2.1vw, 1.28rem);
+}
+
+.travel-alt {
+  margin: 1rem auto 0;
+  max-width: 50ch;
+  color: #4f463f;
+  font-size: clamp(0.98rem, 1.9vw, 1.12rem);
+}
+
+.travel-book-actions {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.travel-book-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: min(100%, 390px);
+  min-height: 68px;
+  padding: 1rem 1.4rem;
+  border-radius: 999px;
+  background: #2f241c;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fffdf9;
+  font-size: clamp(1rem, 1.8vw, 1.16rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  box-shadow: 0 14px 30px rgba(47, 36, 28, 0.24);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.travel-book-link-secondary {
+  background: #ffffff;
+  color: #2f241c;
+  border: 1px solid rgba(77, 59, 45, 0.28);
+  box-shadow: none;
+}
+
+.travel-book-link:hover,
+.travel-book-link:focus-visible {
+  transform: translateY(-2px);
+  background: #3c2e24;
+  box-shadow: 0 20px 36px rgba(47, 36, 28, 0.28);
+}
+
+.travel-book-link-secondary:hover,
+.travel-book-link-secondary:focus-visible {
+  background: #f8f5f1;
+  color: #2f241c;
+  box-shadow: 0 10px 22px rgba(47, 36, 28, 0.12);
+}
+
+.travel-book-link:focus-visible {
+  outline: 2px solid rgba(231, 193, 166, 0.95);
+  outline-offset: 4px;
+}
+
 .wedding-party-page {
   min-height: calc(100vh - 9rem);
   padding: 3rem 0 2rem;
@@ -1106,6 +1218,20 @@ body.animations-ready .hero-scroll-reveal.is-visible {
 
   .party-role {
     font-size: clamp(1rem, 4vw, 1.2rem);
+  }
+
+  .travel-layout {
+    min-height: auto;
+    padding: 0.9rem 0 1.5rem;
+  }
+
+  .travel-card {
+    border-radius: 18px;
+    box-shadow: 0 8px 18px rgba(44, 34, 26, 0.06);
+  }
+
+  .travel-book-link {
+    min-height: 60px;
   }
 
   .hero,
