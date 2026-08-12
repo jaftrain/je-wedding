@@ -47,6 +47,7 @@ async function startIntroAnimationsSmart() {
 
   await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
   document.body.classList.add('animations-ready');
+  setupHeroScrollReveal();
   setupPartyScrollReveal();
 }
 
@@ -82,6 +83,37 @@ if (navLinkItems.length > 0) {
   navLinkItems.forEach((link) => {
     link.addEventListener('click', closeMobileMenu);
   });
+}
+
+/* -----------------------------------------------------
+   Home hero scroll reveal
+   ----------------------------------------------------- */
+function setupHeroScrollReveal() {
+  const heroRevealItems = document.querySelectorAll('.hero-scroll-reveal');
+  if (heroRevealItems.length === 0) return;
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+    heroRevealItems.forEach((item) => item.classList.add('is-visible'));
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.22,
+      rootMargin: '0px 0px -10% 0px'
+    }
+  );
+
+  heroRevealItems.forEach((item) => observer.observe(item));
 }
 
 /* -----------------------------------------------------
