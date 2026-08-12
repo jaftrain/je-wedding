@@ -145,9 +145,11 @@ a {
     margin: 1rem auto 0;
   }
 
-  .hero-intro {
+  .hero-intro,
+  .hero-and,
+  .hero-location {
     font-size: 0.85rem;
-    margin-bottom: 1rem;
+    margin: 0.9rem 0;
     letter-spacing: 0.1em;
   }
 
@@ -156,18 +158,9 @@ a {
     letter-spacing: 0.1em;
   }
 
-  .hero-and {
-    font-size: 0.85rem;
-    margin: 0.8rem 0;
-  }
-
   .hero-date {
     font-size: clamp(0.9rem, 2.8vw, 1.1rem);
     margin-top: 2.8rem;
-  }
-
-  .hero-location {
-    font-size: clamp(0.85rem, 2.5vw, 1rem);
   }
 
   .hero-rsvp {
@@ -763,16 +756,21 @@ main {
   align-items: center;
 }
 
-.hero-intro {
-  margin: 0 0 2rem;
-  font-family: inherit;
-  font-size: 1.16rem;
-  font-style: italic;
-  line-height: 1.6;
+.hero-intro,
+.hero-and,
+.hero-location {
+  font-family: "Quattrocento", Georgia, serif;
+  font-size: clamp(1.12rem, 2vw, 1.44rem);
+  font-style: normal;
+  line-height: 1.4;
   letter-spacing: 0.18em;
   text-transform: none;
-  color: var(--muted);
+  color: #1a1715;
   text-align: center;
+}
+
+.hero-intro {
+  margin: 0 0 1rem;
 }
 
 .hero-date {
@@ -810,13 +808,7 @@ main {
 }
 
 .hero-and {
-  margin: 1.75rem 0 1.75rem;
-  font-family: inherit;
-  font-size: 1.16rem;
-  letter-spacing: 0.18em;
-  text-transform: lowercase;
-  color: var(--muted);
-  text-align: center;
+  margin: 1rem 0;
   animation: slideInLeft 0.8s cubic-bezier(0.24, 1, 0.32, 1) both;
   animation-delay: 0.18s;
 }
@@ -828,10 +820,7 @@ main {
 }
 
 .hero-location {
-  margin: 0.65rem 0 0;
-  color: #1a1715;
-  font-size: clamp(1.12rem, 2vw, 1.44rem);
-  letter-spacing: 0.18em;
+  margin: 1rem 0 0;
 }
 
 .hero-rsvp {
