@@ -427,6 +427,22 @@ main {
   outline-offset: 4px;
 }
 
+.travel-animate-left,
+.travel-animate-right {
+  animation-duration: 1.8s;
+  animation-timing-function: cubic-bezier(0.22, 0.8, 0.26, 1);
+  animation-delay: 0.12s;
+  animation-fill-mode: both;
+}
+
+.travel-animate-left {
+  animation-name: slideInLeft;
+}
+
+.travel-animate-right {
+  animation-name: slideInRight;
+}
+
 .wedding-party-page {
   min-height: calc(100vh - 9rem);
   padding: 3rem 0 2rem;
@@ -1002,7 +1018,9 @@ body:not(.animations-ready) .hero-and,
 body:not(.animations-ready) .hero-date,
 body:not(.animations-ready) .hero-location,
 body:not(.animations-ready) .hero-rsvp,
-body:not(.animations-ready) .countdown {
+body:not(.animations-ready) .countdown,
+body:not(.animations-ready) .travel-animate-left,
+body:not(.animations-ready) .travel-animate-right {
   animation-play-state: paused !important;
 }
 
@@ -1237,5 +1255,12 @@ body.animations-ready .hero-scroll-reveal.is-visible {
   .hero,
   .info-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .travel-animate-left,
+  .travel-animate-right {
+    animation: none !important;
   }
 }
