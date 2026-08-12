@@ -324,6 +324,7 @@ main {
 .travel-layout {
   min-height: calc(100vh - 12rem);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 2rem 0 3rem;
@@ -331,10 +332,10 @@ main {
 
 .travel-card {
   width: min(760px, 100%);
-  background: #ffffff;
-  border: 1px solid rgba(77, 59, 45, 0.1);
-  border-radius: 26px;
-  box-shadow: 0 10px 28px rgba(44, 34, 26, 0.07);
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
   padding: clamp(1.5rem, 4vw, 3rem);
   text-align: center;
 }
@@ -425,6 +426,10 @@ main {
 .travel-book-link:focus-visible {
   outline: 2px solid rgba(231, 193, 166, 0.95);
   outline-offset: 4px;
+}
+
+.hotels-section {
+  margin-top: 1.8rem;
 }
 
 .travel-animate-left,
@@ -1243,9 +1248,13 @@ body.animations-ready .hero-scroll-reveal.is-visible {
     padding: 0.9rem 0 1.5rem;
   }
 
+  .hotels-section {
+    margin-top: 1.2rem;
+  }
+
   .travel-card {
-    border-radius: 18px;
-    box-shadow: 0 8px 18px rgba(44, 34, 26, 0.06);
+    border-radius: 0;
+    box-shadow: none;
   }
 
   .travel-book-link {
