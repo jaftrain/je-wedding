@@ -1,0 +1,4 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Cocktail icon">
+  <rect x="1" y="1" width="62" height="62" rx="14" fill="#fff" stroke="#d8c8ba"/>
+  <path d="M16 18h32l-12 14v13h8v5H20v-5h8V32L16 18z" fill="none" stroke="#8d725b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

@@ -314,6 +314,12 @@ main {
   background-image: none;
 }
 
+.schedule-page {
+  background: #ffffff;
+  background-color: #ffffff;
+  background-image: none;
+}
+
 .travel-layout {
   min-height: calc(100vh - 12rem);
   display: flex;
@@ -440,6 +446,122 @@ main {
 .travel-animate-right {
   animation-name: slideInRight;
 }
+
+.schedule-layout {
+  min-height: calc(100vh - 10rem);
+  width: min(860px, 100%);
+  margin: 0 auto;
+  padding: 1.5rem 0 2.5rem;
+}
+
+.schedule-header {
+  text-align: center;
+  margin-bottom: 1.8rem;
+}
+
+.schedule-header-actions {
+  margin-top: 1.25rem;
+}
+
+.schedule-date {
+  margin: 0;
+  font-family: "Quattrocento", Georgia, serif;
+  font-size: clamp(2rem, 6vw, 3.2rem);
+  line-height: 1.12;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #b97a66 0%, #e7c1a6 35%, #c78d73 70%, #b97a66 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.schedule-title {
+  margin: 0.5rem 0 0;
+  font-family: "Quattrocento", Georgia, serif;
+  font-size: clamp(2rem, 6vw, 3.2rem);
+  line-height: 1.1;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #2e2722;
+}
+
+.schedule-list {
+  display: grid;
+  gap: 0.9rem;
+  justify-items: center;
+}
+
+.schedule-event {
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  text-align: center;
+  gap: 0.5rem;
+  align-items: center;
+  width: min(700px, 100%);
+  padding: 1rem 1.05rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  --schedule-shift: 0px;
+}
+
+.schedule-page .schedule-event {
+  opacity: 0;
+  transform: translateX(var(--schedule-shift));
+  transition: opacity 0.8s cubic-bezier(0.22, 0.8, 0.26, 1), transform 0.8s cubic-bezier(0.22, 0.8, 0.26, 1);
+  will-change: opacity, transform;
+}
+
+.schedule-page .schedule-event.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.schedule-list .schedule-event:nth-child(odd) {
+  --schedule-shift: 58px;
+}
+
+.schedule-list .schedule-event:nth-child(even) {
+  --schedule-shift: -58px;
+}
+
+.schedule-event-icon {
+  width: 88px;
+  height: 88px;
+  display: block;
+  margin-top: 0;
+}
+
+.schedule-event-title {
+  margin: 0;
+  font-size: clamp(1.45rem, 3.2vw, 1.95rem);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: linear-gradient(90deg, #b97a66 0%, #e7c1a6 35%, #c78d73 70%, #b97a66 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.schedule-event-time {
+  margin: 0.25rem 0 0;
+  font-size: clamp(1.15rem, 2.1vw, 1.35rem);
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  color: #2f241c;
+}
+
+.schedule-event-location {
+  margin: 0.35rem 0 0;
+  font-size: 0.95rem;
+  color: #6a6259;
+}
+
 
 .wedding-party-page {
   min-height: calc(100vh - 9rem);
@@ -700,6 +822,13 @@ main {
     opacity: 1;
     transform: none;
     animation: none;
+  }
+
+  .schedule-page .schedule-event {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    will-change: auto;
   }
 }
 
@@ -1237,6 +1366,48 @@ body.animations-ready .hero-scroll-reveal.is-visible {
     padding: 0.9rem 0 1.5rem;
   }
 
+  .schedule-layout {
+    min-height: auto;
+    padding: 0.8rem 0 1.2rem;
+  }
+
+  .schedule-header {
+    margin-bottom: 1.1rem;
+  }
+
+  .schedule-header-actions {
+    margin-top: 0.95rem;
+  }
+
+  .schedule-date {
+    font-size: clamp(1.45rem, 7vw, 1.95rem);
+    letter-spacing: 0.1em;
+  }
+
+  .schedule-title {
+    font-size: clamp(1.55rem, 7vw, 2rem);
+  }
+
+  .schedule-event {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+    padding: 0.82rem 0.78rem;
+  }
+
+  .schedule-event-icon {
+    width: 66px;
+    height: 66px;
+  }
+
+  .schedule-event-title {
+    font-size: clamp(1.15rem, 4.8vw, 1.38rem);
+  }
+
+  .schedule-event-time,
+  .schedule-event-location {
+    font-size: clamp(1rem, 3.8vw, 1.12rem);
+  }
+
   .hotels-section {
     margin-top: 1.2rem;
   }
@@ -1260,5 +1431,11 @@ body.animations-ready .hero-scroll-reveal.is-visible {
   .travel-animate-left,
   .travel-animate-right {
     animation: none !important;
+  }
+
+  .schedule-page .schedule-event {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }

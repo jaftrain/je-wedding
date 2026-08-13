@@ -1,0 +1,45 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Jon and Elissa's Wedding//Schedule//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Jon and Elissa's Wedding
+X-WR-TIMEZONE:America/New_York
+X-PUBLISHED-TTL:PT12H
+BEGIN:VEVENT
+UID:20280227-all-day-jon-elissa@je-wedding
+DTSTAMP:20260812T120000Z
+LAST-MODIFIED:20260812T120000Z
+DTSTART;VALUE=DATE:20280227
+DTEND;VALUE=DATE:20280228
+SUMMARY:Join Us: Jon and Elissa's Wedding Day
+DESCRIPTION:We are so happy to celebrate with you!\n\nSunday\, February 27\, 2028\nCocktail Hour / Guests Arrive: 5:00 pm - 5:45 pm\nCeremony: 5:45 pm - 6:30 pm\nReception: 7:00 pm - 9:00 pm\nParty: 9:00 pm - 11:00 pm\nAfter Party: 11:00 pm - 1:00 am\n\nVenue: Fort Lauderdale Marriott Harbor Beach Resort & Spa\, 3030 Holiday Dr\, Fort Lauderdale\, FL 33316\nMap & directions: https://maps.app.goo.gl/bjirPPYMSmVx8HsV9\n\nWe can't wait to celebrate together!
+LOCATION:Fort Lauderdale Marriott Harbor Beach Resort and Spa\, 3030 Holiday Dr\, Fort Lauderdale\, FL 33316
+URL:https://maps.app.goo.gl/bjirPPYMSmVx8HsV9
+STATUS:CONFIRMED
+TRANSP:TRANSPARENT
+SEQUENCE:0
+CLASS:PUBLIC
+CATEGORIES:WEDDING,CELEBRATION
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Jon and Elissa's Wedding Day is three months away
+TRIGGER:-P3M
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Jon and Elissa's Wedding Day is one week away
+TRIGGER:-P7D
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Jon and Elissa's Wedding Day is tomorrow
+TRIGGER:-P1D
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Jon and Elissa's Wedding Day starts today
+TRIGGER:-PT9H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

@@ -26,6 +26,7 @@ async function startIntroAnimationsSmart() {
   if (prefersReducedMotion) {
     document.body.classList.add('animations-ready');
     setupPartyScrollReveal();
+    setupScheduleScrollReveal();
     return;
   }
 
@@ -49,6 +50,7 @@ async function startIntroAnimationsSmart() {
   document.body.classList.add('animations-ready');
   setupHeroScrollReveal();
   setupPartyScrollReveal();
+  setupScheduleScrollReveal();
 }
 
 startIntroAnimationsSmart();
@@ -145,6 +147,37 @@ function setupPartyScrollReveal() {
   );
 
   partyItems.forEach((item) => observer.observe(item));
+}
+
+/* -----------------------------------------------------
+   Schedule scroll reveal
+   ----------------------------------------------------- */
+function setupScheduleScrollReveal() {
+  const scheduleItems = document.querySelectorAll('.schedule-page .schedule-event');
+  if (scheduleItems.length === 0) return;
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+    scheduleItems.forEach((item) => item.classList.add('is-visible'));
+    return;
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      threshold: 0.2,
+      rootMargin: '0px 0px -8% 0px'
+    }
+  );
+
+  scheduleItems.forEach((item) => observer.observe(item));
 }
 
 /* -----------------------------------------------------
