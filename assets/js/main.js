@@ -153,7 +153,7 @@ function setupPartyScrollReveal() {
    Schedule scroll reveal
    ----------------------------------------------------- */
 function setupScheduleScrollReveal() {
-  const scheduleItems = document.querySelectorAll('.schedule-page .schedule-event');
+  const scheduleItems = document.querySelectorAll('.schedule-page .schedule-event, .schedule-page .schedule-header-button');
   if (scheduleItems.length === 0) return;
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -172,7 +172,7 @@ function setupScheduleScrollReveal() {
       });
     },
     {
-      threshold: 0.2,
+      threshold: 0.18,
       rootMargin: '0px 0px -8% 0px'
     }
   );

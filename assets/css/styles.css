@@ -257,23 +257,58 @@ a {
 
 .menu-toggle {
   display: none;
+  position: relative;
   border: 0;
   background: transparent;
   cursor: pointer;
   padding: 0.25rem;
   outline: none;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .menu-toggle span {
-  display: block;
+  position: absolute;
+  left: 50%;
+  top: 50%;
   width: 24px;
   height: 2px;
-  margin: 4px 0;
   background: var(--accent);
   border-radius: 999px;
-  transition: transform 0.34s cubic-bezier(0.22, 1, 0.36, 1),
-              opacity 0.24s ease,
-              margin 0.34s ease;
+  transform: translate(-50%, -50%);
+  transform-origin: center;
+  backface-visibility: hidden;
+  transition: transform 0.42s cubic-bezier(0.23, 1, 0.32, 1),
+              opacity 0.22s ease,
+              background-color 0.22s ease;
+}
+
+.menu-toggle span:nth-child(1) {
+  transform: translate(-50%, calc(-50% - 7px));
+}
+
+.menu-toggle span:nth-child(2) {
+  top: 50%;
+}
+
+.menu-toggle span:nth-child(3) {
+  transform: translate(-50%, calc(-50% + 7px));
+}
+
+.menu-toggle[aria-expanded="true"] span:nth-child(1) {
+  transform: translate(-50%, -50%) rotate(45deg) scaleX(1.04);
+}
+
+.menu-toggle[aria-expanded="true"] span:nth-child(2) {
+  opacity: 0;
+  transform: translate(-50%, -50%) scaleX(0.35);
+}
+
+.menu-toggle[aria-expanded="true"] span:nth-child(3) {
+  transform: translate(-50%, -50%) rotate(-45deg) scaleX(1.04);
+}
+
+.menu-toggle[aria-expanded="true"] {
+  transform: scale(1.02);
 }
 
 .menu-toggle:focus-visible {
@@ -463,6 +498,30 @@ main {
   margin-top: 1.25rem;
 }
 
+.schedule-header-button {
+  --schedule-button-shift: 0px;
+}
+
+.schedule-page .schedule-header-button {
+  opacity: 0;
+  transform: translateX(var(--schedule-button-shift)) scale(0.98);
+  transition: opacity 0.8s cubic-bezier(0.22, 0.8, 0.26, 1), transform 0.8s cubic-bezier(0.22, 0.8, 0.26, 1);
+  will-change: opacity, transform;
+}
+
+.schedule-page .schedule-header-button.is-visible {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+}
+
+.schedule-header-button-left {
+  --schedule-button-shift: -58px;
+}
+
+.schedule-header-button-right {
+  --schedule-button-shift: 58px;
+}
+
 .schedule-date {
   margin: 0;
   font-family: "Quattrocento", Georgia, serif;
@@ -510,22 +569,22 @@ main {
 
 .schedule-page .schedule-event {
   opacity: 0;
-  transform: translateX(var(--schedule-shift));
+  transform: translateX(var(--schedule-shift)) scale(0.98);
   transition: opacity 0.8s cubic-bezier(0.22, 0.8, 0.26, 1), transform 0.8s cubic-bezier(0.22, 0.8, 0.26, 1);
   will-change: opacity, transform;
 }
 
 .schedule-page .schedule-event.is-visible {
   opacity: 1;
-  transform: translateX(0);
+  transform: translateX(0) scale(1);
 }
 
 .schedule-list .schedule-event:nth-child(odd) {
-  --schedule-shift: 58px;
+  --schedule-shift: -58px;
 }
 
 .schedule-list .schedule-event:nth-child(even) {
-  --schedule-shift: -58px;
+  --schedule-shift: 58px;
 }
 
 .schedule-event-icon {
@@ -1272,19 +1331,6 @@ body.animations-ready .hero-scroll-reveal.is-visible {
     backdrop-filter: none;
   }
 
-  .menu-toggle[aria-expanded="true"] span:nth-child(1) {
-    transform: translateY(6px) rotate(45deg);
-  }
-
-  .menu-toggle[aria-expanded="true"] span:nth-child(2) {
-    opacity: 0;
-    transform: scaleX(0);
-  }
-
-  .menu-toggle[aria-expanded="true"] span:nth-child(3) {
-    transform: translateY(-6px) rotate(-45deg);
-  }
-
   .nav-links {
     display: flex;
     position: fixed;
@@ -1433,6 +1479,7 @@ body.animations-ready .hero-scroll-reveal.is-visible {
     animation: none !important;
   }
 
+  .schedule-page .schedule-header-button,
   .schedule-page .schedule-event {
     opacity: 1;
     transform: none;
