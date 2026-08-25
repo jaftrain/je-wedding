@@ -8,6 +8,7 @@
   let failedAttempts = 0;
   let overlayElement = null;
   let lockoutTimerId = null;
+  let lockedScrollY = 0;
 
   function isAuthenticated() {
     return window.localStorage.getItem(AUTH_KEY) === '1';
@@ -16,14 +17,21 @@
   function lockPage() {
     document.documentElement.classList.add('auth-locked');
     if (document.body) {
+      lockedScrollY = window.scrollY || window.pageYOffset || 0;
       document.body.classList.add('auth-locked');
+      document.body.style.top = `-${lockedScrollY}px`;
     }
   }
 
   function unlockPage() {
     document.documentElement.classList.remove('auth-locked');
     if (document.body) {
+      const bodyTop = document.body.style.top;
       document.body.classList.remove('auth-locked');
+      document.body.style.top = '';
+
+      const restoredScrollY = bodyTop ? Math.abs(parseInt(bodyTop, 10)) : lockedScrollY;
+      window.scrollTo(0, Number.isFinite(restoredScrollY) ? restoredScrollY : 0);
     }
 
     if (overlayElement) {

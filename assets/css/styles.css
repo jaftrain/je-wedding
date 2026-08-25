@@ -50,7 +50,16 @@ body > * {
 
 html.auth-locked,
 body.auth-locked {
+  height: 100%;
   overflow: hidden;
+  overscroll-behavior: none;
+}
+
+body.auth-locked {
+  position: fixed;
+  left: 0;
+  right: 0;
+  width: 100%;
 }
 
 body.auth-locked > *:not(.password-gate-overlay):not(script):not(noscript) {
