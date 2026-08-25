@@ -64,6 +64,18 @@ function initializeSite() {
     menuToggle.addEventListener('click', toggleMobileMenu);
   }
 
+  document.addEventListener('pointerdown', (event) => {
+    if (!navLinks || !menuToggle) return;
+    if (!navLinks.classList.contains('open')) return;
+
+    const clickedMenuToggle = menuToggle.contains(event.target);
+    const clickedInsideNav = navLinks.contains(event.target);
+
+    if (!clickedMenuToggle && !clickedInsideNav) {
+      closeMobileMenu();
+    }
+  });
+
   const navLinkItems = document.querySelectorAll('.nav-links a, .nav-links .nav-link-button');
   if (navLinkItems.length > 0) {
     navLinkItems.forEach((link) => {
