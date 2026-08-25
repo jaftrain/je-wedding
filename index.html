@@ -18,6 +18,19 @@
     <link rel="stylesheet" href="assets/css/styles.css" />
   </head>
   <body>
+    <script>
+      document.documentElement.classList.add('auth-locked');
+    </script>
+    <noscript>
+      <style>
+        body > *:not(.password-gate-noscript) {
+          display: none !important;
+        }
+      </style>
+      <div class="password-gate-noscript">
+        This site requires JavaScript to unlock. Please enable JavaScript and reload.
+      </div>
+    </noscript>
     <header class="site-header">
       <nav class="nav-bar" aria-label="Main navigation">
         <a class="brand mobile-hidden" href="index.html">Jon & Elissa</a>
@@ -62,6 +75,7 @@
       </section>
     </main>
 
+    <script src="assets/js/password-gate.js"></script>
     <script src="assets/js/main.js"></script>
   </body>
 </html>
