@@ -24,6 +24,7 @@
 html {
   font-size: 16px;
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 body {
@@ -41,6 +42,7 @@ body {
   line-height: 1.7;
   position: relative;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 body > * {
@@ -311,8 +313,9 @@ a {
   display: grid;
   place-items: center;
   padding: 1.25rem;
-  background: #ffffff;
-  backdrop-filter: none;
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(4px);
+  animation: gateOverlayIn 380ms ease-out both;
 }
 
 .password-gate-dialog {
@@ -322,6 +325,36 @@ a {
   background: #ffffff;
   box-shadow: none;
   padding: 1.4rem 1.2rem;
+  transform-origin: center center;
+  will-change: transform, opacity;
+  animation: gateDialogIn 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes gateOverlayIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes gateDialogIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .password-gate-overlay,
+  .password-gate-dialog {
+    animation: none;
+  }
 }
 
 .password-gate-dialog h1 {
