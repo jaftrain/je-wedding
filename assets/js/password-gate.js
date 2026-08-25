@@ -1,9 +1,13 @@
 (function () {
   const AUTH_KEY = 'jeWeddingAuthV1';
-  const PASSWORD = 'foobar';
+  const ATTEMPT_KEY = 'jeWeddingAttemptStateV1';
+  const PASSWORD = 'wedding2028';
+  const MAX_ATTEMPTS = 10;
+  const LOCKOUT_MS = 60 * 60 * 1000;
 
   let failedAttempts = 0;
   let overlayElement = null;
+  let lockoutTimerId = null;
 
   function isAuthenticated() {
     return window.localStorage.getItem(AUTH_KEY) === '1';
@@ -39,6 +43,113 @@
     }
   }
 
+  function getNow() {
+    return Date.now();
+  }
+
+  function readAttemptState() {
+    try {
+      const raw = window.localStorage.getItem(ATTEMPT_KEY);
+      if (!raw) {
+        return {
+          count: 0,
+          windowStartedAt: 0,
+          lockedUntil: 0
+        };
+      }
+
+      const parsed = JSON.parse(raw);
+      return {
+        count: Number(parsed.count) || 0,
+        windowStartedAt: Number(parsed.windowStartedAt) || 0,
+        lockedUntil: Number(parsed.lockedUntil) || 0
+      };
+    } catch (_error) {
+      return {
+        count: 0,
+        windowStartedAt: 0,
+        lockedUntil: 0
+      };
+    }
+  }
+
+  function writeAttemptState(state) {
+    window.localStorage.setItem(ATTEMPT_KEY, JSON.stringify(state));
+  }
+
+  function clearAttemptState() {
+    window.localStorage.removeItem(ATTEMPT_KEY);
+    failedAttempts = 0;
+  }
+
+  function getNormalizedAttemptState(now) {
+    const state = readAttemptState();
+    const isLockoutExpired = state.lockedUntil > 0 && now >= state.lockedUntil;
+    const isWindowExpired = state.windowStartedAt > 0 && now - state.windowStartedAt >= LOCKOUT_MS;
+
+    if (isLockoutExpired || isWindowExpired) {
+      const resetState = {
+        count: 0,
+        windowStartedAt: 0,
+        lockedUntil: 0
+      };
+      writeAttemptState(resetState);
+      return resetState;
+    }
+
+    return state;
+  }
+
+  function formatRemainingLockout(ms) {
+    const totalSeconds = Math.max(1, Math.ceil(ms / 1000));
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+
+    if (minutes <= 0) {
+      return `${seconds}s`;
+    }
+
+    if (seconds === 0) {
+      return `${minutes}m`;
+    }
+
+    return `${minutes}m ${seconds}s`;
+  }
+
+  function applyLockoutUi(passwordInput, submitButton, state) {
+    if (lockoutTimerId) {
+      window.clearTimeout(lockoutTimerId);
+      lockoutTimerId = null;
+    }
+
+    const now = getNow();
+    const remainingMs = state.lockedUntil - now;
+
+    if (remainingMs <= 0) {
+      passwordInput.disabled = false;
+      submitButton.disabled = false;
+      setError('');
+      return;
+    }
+
+    passwordInput.disabled = true;
+    submitButton.disabled = true;
+    setError(`Too many password attempts. Try again in 1 hour.`);
+
+    lockoutTimerId = window.setTimeout(() => {
+      const refreshed = getNormalizedAttemptState(getNow());
+      if (refreshed.lockedUntil > getNow()) {
+        applyLockoutUi(passwordInput, submitButton, refreshed);
+        return;
+      }
+
+      passwordInput.disabled = false;
+      submitButton.disabled = false;
+      setError('');
+      passwordInput.focus();
+    }, Math.min(remainingMs + 80, LOCKOUT_MS));
+  }
+
   function mountOverlay() {
     if (!document.body || overlayElement) return;
 
@@ -65,6 +176,11 @@
 
     if (!form || !passwordInput || !submitButton) return;
 
+    const initialAttemptState = getNormalizedAttemptState(getNow());
+    if (initialAttemptState.lockedUntil > getNow()) {
+      applyLockoutUi(passwordInput, submitButton, initialAttemptState);
+    }
+
     const focusables = () => overlayElement.querySelectorAll('input, button');
 
     overlayElement.addEventListener('keydown', (event) => {
@@ -87,11 +203,20 @@
 
     form.addEventListener('submit', (event) => {
       event.preventDefault();
+      const now = getNow();
+      const currentAttemptState = getNormalizedAttemptState(now);
+
+      if (currentAttemptState.lockedUntil > now) {
+        applyLockoutUi(passwordInput, submitButton, currentAttemptState);
+        return;
+      }
+
       const candidate = String(passwordInput.value || '');
 
       if (candidate === PASSWORD) {
         window.localStorage.setItem(AUTH_KEY, '1');
         failedAttempts = 0;
+        clearAttemptState();
         passwordInput.value = '';
         setError('');
         unlockPage();
@@ -101,9 +226,35 @@
       failedAttempts += 1;
       const retryDelayMs = Math.min(1500, failedAttempts * 300);
 
+      let nextCount = currentAttemptState.count;
+      let windowStartedAt = currentAttemptState.windowStartedAt;
+      if (!windowStartedAt) {
+        windowStartedAt = now;
+      }
+      nextCount += 1;
+
+      const nextState = {
+        count: nextCount,
+        windowStartedAt,
+        lockedUntil: 0
+      };
+
+      if (nextCount >= MAX_ATTEMPTS) {
+        nextState.lockedUntil = now + LOCKOUT_MS;
+      }
+
+      writeAttemptState(nextState);
+
       submitButton.disabled = true;
-      setError('Incorrect password. Please try again.');
+      if (nextState.lockedUntil > 0) {
+        applyLockoutUi(passwordInput, submitButton, nextState);
+      } else {
+        const attemptsRemaining = MAX_ATTEMPTS - nextCount;
+        setError(`Incorrect password. ${attemptsRemaining} attempt${attemptsRemaining === 1 ? '' : 's'} remaining.`);
+      }
       window.setTimeout(() => {
+        const stateAfterDelay = getNormalizedAttemptState(getNow());
+        if (stateAfterDelay.lockedUntil > getNow()) return;
         submitButton.disabled = false;
       }, retryDelayMs);
       passwordInput.focus();
@@ -148,7 +299,7 @@
   }
 
   window.addEventListener('storage', (event) => {
-    if (event.key !== AUTH_KEY) return;
+    if (event.key !== AUTH_KEY && event.key !== ATTEMPT_KEY) return;
     enforceGate();
   });
 

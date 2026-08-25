@@ -3,6 +3,7 @@
    ----------------------------------------------------- */
 const menuToggle = document.querySelector('.menu-toggle');
 const navLinks = document.querySelector('.nav-links');
+let siteInitialized = false;
 
 function delay(ms) {
   return new Promise((resolve) => window.setTimeout(resolve, ms));
@@ -53,7 +54,45 @@ async function startIntroAnimationsSmart() {
   setupScheduleScrollReveal();
 }
 
-startIntroAnimationsSmart();
+function initializeSite() {
+  if (siteInitialized) return;
+  siteInitialized = true;
+
+  startIntroAnimationsSmart();
+
+  if (menuToggle) {
+    menuToggle.addEventListener('click', toggleMobileMenu);
+  }
+
+  const navLinkItems = document.querySelectorAll('.nav-links a, .nav-links .nav-link-button');
+  if (navLinkItems.length > 0) {
+    navLinkItems.forEach((link) => {
+      link.addEventListener('click', closeMobileMenu);
+    });
+  }
+
+  partyNameLinks.forEach((link) => {
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+      openPartyModal(link);
+    });
+  });
+
+  if (partyModalClose) {
+    partyModalClose.addEventListener('click', closePartyModal);
+  }
+
+  if (partyModal) {
+    partyModal.addEventListener('click', (event) => {
+      if (event.target === partyModal) {
+        closePartyModal();
+      }
+    });
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000 * 60 * 60);
+}
 
 /**
  * Toggle the mobile navigation menu open/closed.
@@ -74,17 +113,6 @@ function closeMobileMenu() {
 
   navLinks.classList.remove('open');
   menuToggle.setAttribute('aria-expanded', 'false');
-}
-
-if (menuToggle) {
-  menuToggle.addEventListener('click', toggleMobileMenu);
-}
-
-const navLinkItems = document.querySelectorAll('.nav-links a');
-if (navLinkItems.length > 0) {
-  navLinkItems.forEach((link) => {
-    link.addEventListener('click', closeMobileMenu);
-  });
 }
 
 /* -----------------------------------------------------
@@ -211,25 +239,6 @@ function closePartyModal() {
   }, 280);
 }
 
-partyNameLinks.forEach((link) => {
-  link.addEventListener('click', (event) => {
-    event.preventDefault();
-    openPartyModal(link);
-  });
-});
-
-if (partyModalClose) {
-  partyModalClose.addEventListener('click', closePartyModal);
-}
-
-if (partyModal) {
-  partyModal.addEventListener('click', (event) => {
-    if (event.target === partyModal) {
-      closePartyModal();
-    }
-  });
-}
-
 document.addEventListener('keydown', (event) => {
   if (event.key === 'Escape' && partyModal && !partyModal.hidden) {
     closePartyModal();
@@ -284,5 +293,8 @@ function updateCountdown() {
   countdownElement.innerHTML = `<span class="countdown-line">${countdownParts.join(', ')}</span>`;
 }
 
-updateCountdown();
-setInterval(updateCountdown, 1000 * 60 * 60);
+if (document.documentElement.classList.contains('auth-locked')) {
+  document.addEventListener('site:unlocked', initializeSite, { once: true });
+} else {
+  initializeSite();
+}
