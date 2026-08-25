@@ -9,6 +9,7 @@
   let overlayElement = null;
   let lockoutTimerId = null;
   let lockedScrollY = 0;
+  let removeScrollBlockers = null;
 
   function isAuthenticated() {
     return window.localStorage.getItem(AUTH_KEY) === '1';
@@ -25,6 +26,12 @@
 
   function unlockPage() {
     document.documentElement.classList.remove('auth-locked');
+
+    if (removeScrollBlockers) {
+      removeScrollBlockers();
+      removeScrollBlockers = null;
+    }
+
     if (document.body) {
       const bodyTop = document.body.style.top;
       document.body.classList.remove('auth-locked');
@@ -177,6 +184,17 @@
     ].join('');
 
     document.body.appendChild(overlayElement);
+
+    const blockScroll = (event) => {
+      event.preventDefault();
+    };
+
+    document.addEventListener('wheel', blockScroll, { passive: false });
+    document.addEventListener('touchmove', blockScroll, { passive: false });
+    removeScrollBlockers = () => {
+      document.removeEventListener('wheel', blockScroll);
+      document.removeEventListener('touchmove', blockScroll);
+    };
 
     const form = overlayElement.querySelector('.password-gate-form');
     const passwordInput = overlayElement.querySelector('#password-gate-input');
