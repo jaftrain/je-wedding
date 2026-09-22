@@ -292,29 +292,7 @@
     });
   }
 
-  function ensureLogoutControl() {
-    const navLinks = document.querySelector('.nav-links');
-    if (!navLinks || navLinks.querySelector('.nav-link-button')) return;
-
-    const logoutButton = document.createElement('button');
-    logoutButton.type = 'button';
-    logoutButton.className = 'nav-link-button';
-    logoutButton.textContent = 'Logout';
-
-    logoutButton.addEventListener('click', () => {
-      window.localStorage.removeItem(AUTH_KEY);
-      failedAttempts = 0;
-      setError('');
-      lockPage();
-      mountOverlay();
-    });
-
-    navLinks.appendChild(logoutButton);
-  }
-
   function enforceGate() {
-    ensureLogoutControl();
-
     if (isAuthenticated()) {
       unlockPage();
       return;

@@ -76,7 +76,7 @@ function initializeSite() {
     }
   });
 
-  const navLinkItems = document.querySelectorAll('.nav-links a, .nav-links .nav-link-button');
+  const navLinkItems = document.querySelectorAll('.nav-links a');
   if (navLinkItems.length > 0) {
     navLinkItems.forEach((link) => {
       link.addEventListener('click', closeMobileMenu);
