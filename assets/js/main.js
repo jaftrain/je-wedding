@@ -251,8 +251,14 @@ function closePartyModal() {
   }, 280);
 }
 
-document.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape' && partyModal && !partyModal.hidden) {
+window.addEventListener('keydown', (event) => {
+  if (event.key !== 'Escape') return;
+
+  if (navLinks?.classList.contains('open')) {
+    closeMobileMenu();
+  }
+
+  if (partyModal && !partyModal.hidden) {
     closePartyModal();
   }
 });

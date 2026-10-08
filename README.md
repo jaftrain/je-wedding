@@ -9,6 +9,8 @@ je-wedding/
 ├── index.html
 ├── registry.html
 ├── our-story.html
+├── reports/
+│   └── QA-REPORT-YYYY-MM-DD.md
 ├── assets/
 │   ├── css/
 │   │   └── styles.css
@@ -47,6 +49,7 @@ http://localhost:8000
 
 ## Files you may customize
 
+- `reports/` for dated QA reports
 - `index.html` for page structure and wedding content
 - `registry.html` for registry details
 - `our-story.html` for the couple's story
