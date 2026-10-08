@@ -7,6 +7,7 @@ This repository contains a static wedding website for Jon Frisch and Elissa Bamb
 ```text
 je-wedding/
 ├── index.html
+├── registry.html
 ├── assets/
 │   ├── css/
 │   │   └── styles.css
@@ -46,6 +47,7 @@ http://localhost:8000
 ## Files you may customize
 
 - `index.html` for page structure and wedding content
+- `registry.html` for registry details
 - `assets/css/styles.css` for styling, layout, colors, typography, and border images
 - `assets/js/main.js` for mobile navigation and countdown behavior
 - `assets/images/` for custom SVG artwork and iconography

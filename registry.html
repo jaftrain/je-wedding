@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="A modern wedding website for Jon and Elissa, ready to publish on GitHub Pages."
+      content="Registry information for Jon and Elissa's wedding."
     />
-    <title>Jon & Elissa | Wedding Website</title>
+    <title>Jon & Elissa | Registry</title>
     <link rel="icon" href="assets/images/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -17,7 +17,7 @@
     />
     <link rel="stylesheet" href="assets/css/styles.css" />
   </head>
-  <body>
+  <body class="faq-page">
     <script>
       document.documentElement.classList.add('auth-locked');
     </script>
@@ -42,7 +42,7 @@
           <a href="https://www.zola.com/wedding/manage/guests/all" target="_blank" rel="noopener noreferrer">RSVP</a>
           <a href="travel.html">Travel</a>
           <a href="schedule.html">Schedule</a>
-          <a href="registry.html">Registry</a>
+          <a class="active" href="registry.html" aria-current="page">Registry</a>
           <a href="wedding-party.html">Wedding Party</a>
           <a href="#our story">Our Story</a>
           <a href="faq.html">FAQs</a>
@@ -50,28 +50,11 @@
       </nav>
     </header>
 
-    <main id="home">
-      <section class="hero hero-minimal">
-        <div class="hero-copy">
-          <div class="hero-name-group">
-            <p class="hero-intro">We welcome you to celebrate with us</p>
-            <div class="hero-name-block">
-              <h1 class="brand hero-name">JON</h1>
-              <h1 class="brand hero-name">FRISCH</h1>
-            </div>
-            <p class="hero-and">and</p>
-            <div class="hero-name-block">
-              <h1 class="brand hero-name">ELISSA</h1>
-              <h1 class="brand hero-name">BAMBERGER</h1>
-            </div>
-          </div>
-          <p class="hero-date hero-scroll-reveal">February 27, 2028</p>
-          <p class="hero-location hero-scroll-reveal">Fort Lauderdale, FL</p>
-          <a class="hero-rsvp hero-scroll-reveal" href="https://www.zola.com/wedding/manage/guests/all" target="_blank" rel="noopener noreferrer">RSVP Now</a>
-          <div class="countdown hero-scroll-reveal" id="countdown" aria-live="polite">
-            <span class="countdown-line">0 years, 0 months, 0 days</span>
-          </div>
-        </div>
+    <main>
+      <section class="faq-layout" aria-labelledby="registry-title">
+        <header class="faq-header travel-animate-right">
+          <h1 class="faq-title" id="registry-title">Registry Coming Soon</h1>
+        </header>
       </section>
     </main>
 

@@ -12,6 +12,7 @@ This repository is a small static wedding website built with plain HTML, CSS, an
 ## Repository map
 
 - `index.html`: landing page structure and content
+- `registry.html`: registry page structure and content
 - `wedding-party.html`: wedding party page structure and member data
 - `assets/css/styles.css`: all styling, layout, and responsive behavior
 - `assets/js/main.js`: navigation, modal logic, scroll reveal, and countdown behavior
