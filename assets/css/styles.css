@@ -895,8 +895,8 @@ main {
 }
 
 .schedule-event-icon {
-  width: 88px;
-  height: 88px;
+  width: 176px;
+  height: 176px;
   display: block;
   margin-top: 0;
 }
@@ -1748,8 +1748,8 @@ body.animations-ready .hero-scroll-reveal.is-visible {
   }
 
   .schedule-event-icon {
-    width: 66px;
-    height: 66px;
+    width: 132px;
+    height: 132px;
   }
 
   .schedule-event-title {
