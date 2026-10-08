@@ -37,7 +37,7 @@ body {
   background-image: url("../images/watercolor-floral-border-bouquet.desktop.webp");
   background-position: center top;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: 100% auto;
   background-attachment: scroll;
   line-height: 1.7;
   position: relative;
