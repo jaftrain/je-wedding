@@ -502,6 +502,10 @@ main {
   background-image: none;
 }
 
+.party-page main {
+  padding-top: 0;
+}
+
 .travel-page {
   background: #ffffff;
   background-color: #ffffff;
@@ -927,7 +931,7 @@ main {
 
 .wedding-party-page {
   min-height: calc(100vh - 9rem);
-  padding: 3rem 0 2rem;
+  padding: 0.0rem 0 0rem;
   display: flex;
   align-items: flex-start;
   justify-content: center;
@@ -1682,7 +1686,7 @@ body.animations-ready .hero-scroll-reveal.is-visible {
 
   .wedding-party-page {
     min-height: auto;
-    padding: 1.1rem 0 0.8rem;
+    padding: 0.75rem 0 0.8rem;
   }
 
   .party-grid {
